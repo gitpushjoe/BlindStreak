@@ -1,6 +1,5 @@
 import pickle
-from typing import Union
-import pandas as pd
+
 
 def save_to_file(datum, location):
     pickle.dump(datum, open(location, "wb"))
@@ -22,13 +21,3 @@ class Color:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     END = '\033[0m'
-
-
-class Puzzle:
-    def __init__(self, puzzle):
-        self.puzzle = puzzle
-
-    def get_from_range(self, ratings: tuple = (800, 1000), plys: Union[int, tuple] = (5, 5)) -> pd.Series:
-        rat_s, rat_e = ratings
-        ply_s, ply_e = plys
-        return pd.DataFrame.query(self.puzzle, f'{rat_s} <= Rating <= {rat_e} & {ply_s} <= KeyMove <= {ply_e}')
